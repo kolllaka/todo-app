@@ -82,3 +82,13 @@ func (r *TodoListMySql) GetByID(userID, listID int) (todo.TodoList, error) {
 
 	return list, nil
 }
+
+func (r *TodoListMySql) Delete(userID, listID int) error {
+	// DELETE tl, ul FROM todo_lists tl INNER JOIN users_lists ul WHERE tl.id = ul.list_id AND tl.id = 1 AND ul.user_id = 1
+	stmt := fmt.Sprintf("DELETE tl, ul FROM %s tl INNER JOIN %s ul WHERE tl.id = ul.list_id AND ul.user_id = ? AND ul.list_id = ?",
+		todoListsTable, usersListsTable)
+
+	_, err := r.db.Exec(stmt, userID, listID)
+
+	return err
+}

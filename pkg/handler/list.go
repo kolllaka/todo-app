@@ -74,7 +74,6 @@ func (h *Handler) getListById(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"list": list,
 	})
-
 }
 
 func (h *Handler) updateList(c *gin.Context) {
@@ -82,5 +81,23 @@ func (h *Handler) updateList(c *gin.Context) {
 }
 
 func (h *Handler) deleteList(c *gin.Context) {
+	userID, err := getUserID(c)
+	if err != nil {
+		return
+	}
 
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		newErrorResponce(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+	if err := h.services.TodoList.Delete(userID, id); err != nil {
+		newErrorResponce(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, statusResponce{
+		Status: "ok",
+	})
 }
