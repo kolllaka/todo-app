@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/KoLLlaka/todo-app/internal/todo"
 	"github.com/jmoiron/sqlx"
@@ -81,6 +82,32 @@ func (r *TodoListMySql) GetByID(userID, listID int) (todo.TodoList, error) {
 	}
 
 	return list, nil
+}
+
+func (r *TodoListMySql) Update(userID, listID int, updateInput todo.UpdateListInput) error {
+	setValues := make([]string, 0)
+	args := make([]interface{}, 0)
+
+	if updateInput.Title != nil {
+		setValues = append(setValues, "title = ?")
+		args = append(args, *updateInput.Title)
+	}
+
+	if updateInput.Description != nil {
+		setValues = append(setValues, "description = ?")
+		args = append(args, *updateInput.Description)
+	}
+
+	setStmt := strings.Join(setValues, ", ")
+
+	// UPDATE todo_lists tl, users_lists ul SET tl.description = "test1" WHERE tl.id = ul.list_id AND ul.list_id = 1 AND ul.user_id = 1
+	stmt := fmt.Sprintf("UPDATE %s tl, %s ul SET %s WHERE tl.id = ul.list_id AND ul.list_id = ? AND ul.user_id = ?",
+		todoListsTable, usersListsTable, setStmt)
+	args = append(args, listID, userID)
+
+	_, err := r.db.Exec(stmt, args...)
+
+	return err
 }
 
 func (r *TodoListMySql) Delete(userID, listID int) error {

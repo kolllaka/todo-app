@@ -41,12 +41,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3MDA0N
 
 {}
 
-###
-PUT    http://localhost:8080/api/lists/:id
+### api/lists/:id PUT
+PUT    http://localhost:8080/api/lists/3
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3MDA0NDYsImlhdCI6MTY0ODY1NzI0NiwidXNlcl9pZCI6Nn0.kQ2djfFB12IeJX85GPabyzqHl4nyrx_w_84hiSuyV-I
 
-{}
+{
+	"title": "list 1",
+	"description": "desc to list 1"
+}
 
 ### api/lists/:id DELETE 
 DELETE http://localhost:8080/api/lists/2
