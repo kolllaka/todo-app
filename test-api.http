@@ -17,7 +17,7 @@ Content-Type: application/json
 	"password": "qwerty"
 }
 
-### api/lists/
+### api/lists/ POST
 POST   http://localhost:8080/api/lists/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2OTQyNzEsImlhdCI6MTY0ODY1MTA3MSwidXNlcl9pZCI6Nn0.Kba_3S9YXaTvGMFrJnYIrzIc0PAlSxasd6YtIEl4D2I
@@ -27,10 +27,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2OTQyN
 	"description": "desc to list 2"
 }
 
-###
+### api/lists/ GET
 GET    http://localhost:8080/api/lists/
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2OTc2NjAsImlhdCI6MTY0ODY1NDQ2MCwidXNlcl9pZCI6Nn0.jTnU-O_F83XXraM_FmXYkKTH5I4x1urYwfLAyET-NZ0
 
 {}
 
