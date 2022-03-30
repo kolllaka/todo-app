@@ -1,0 +1,71 @@
+###
+POST   http://localhost:8080/auth/sign-up
+Content-Type: application/json
+
+{}
+
+###
+POST   http://localhost:8080/auth/sign-in
+Content-Type: application/json
+
+{}
+
+###
+POST   http://localhost:8080/api/lists/
+Content-Type: application/json
+
+{}
+
+###
+GET    http://localhost:8080/api/lists/
+Content-Type: application/json
+
+{}
+
+###
+GET    http://localhost:8080/api/lists/:id
+Content-Type: application/json
+
+{}
+
+###
+PUT    http://localhost:8080/api/lists/:id
+Content-Type: application/json
+
+{}
+
+###
+DELETE http://localhost:8080/api/lists/:id
+Content-Type: application/json
+
+{}
+
+###
+POST   http://localhost:8080/api/lists/:id/items/
+Content-Type: application/json
+
+{}
+
+###
+GET    http://localhost:8080/api/lists/:id/items/
+Content-Type: application/json
+
+{}
+
+###
+GET    http://localhost:8080/api/lists/:id/items/:item_id
+Content-Type: application/json
+
+{}
+
+###
+PUT    http://localhost:8080/api/lists/:id/items/:item_id
+Content-Type: application/json
+
+{}
+
+###
+DELETE http://localhost:8080/api/lists/:id/items/:item_id
+Content-Type: application/json
+
+{}
