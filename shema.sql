@@ -3,7 +3,7 @@ CREATE TABLE users
 	id SERIAL NOT NULL UNIQUE,
 	name VARCHAR(255) NOT NULL,
 	username VARCHAR(255) NOT NULL UNIQUE,
-	pasword_hash VARCHAR(255) NOT NULL
+	password_hash VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE todo_lists

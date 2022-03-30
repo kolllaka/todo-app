@@ -12,7 +12,10 @@ Content-Type: application/json
 POST   http://localhost:8080/auth/sign-in
 Content-Type: application/json
 
-{}
+{
+	"username": "KoLLlaka",
+	"password": "qwerty"
+}
 
 ###
 POST   http://localhost:8080/api/lists/
