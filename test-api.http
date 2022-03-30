@@ -17,9 +17,10 @@ Content-Type: application/json
 	"password": "qwerty"
 }
 
-###
+### api/lists/
 POST   http://localhost:8080/api/lists/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2ODMyNTQsImlhdCI6MTY0ODY0MDA1NCwidXNlcl9pZCI6Nn0.cUBbswUaSnDPUSmG5DelpFAm6E_6By8r3PG_c-4ojCM
 
 {}
 
