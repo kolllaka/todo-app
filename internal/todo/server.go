@@ -14,9 +14,10 @@ const (
 	timeout = 10 * time.Second
 )
 
-func (s *Server) Run(port string) error {
+func (s *Server) Run(port string, handler http.Handler) error {
 	s.httpServer = &http.Server{
 		Addr:           ":" + port,
+		Handler:        handler,
 		MaxHeaderBytes: 1 << 20, // 1MB
 		ReadTimeout:    timeout,
 		WriteTimeout:   timeout,
