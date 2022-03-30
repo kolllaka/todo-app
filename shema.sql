@@ -27,3 +27,10 @@ CREATE TABLE todo_items
 	description VARCHAR(255),
 	done BOOLEAN NOT NULL DEFAULT false
 );
+
+CREATE TABLE lists_items
+(
+	id SERIAL NOT NULL UNIQUE,
+	item_id INT NOT NULL REFERENCES todo_items (id) ON DELETE CASCADE,
+	list_id INT NOT NULL REFERENCES todo_lists (id) ON DELETE CASCADE 
+);
