@@ -69,13 +69,13 @@ func (r *TodoListMySql) GetAll(userID int) ([]todo.TodoList, error) {
 	return lists, nil
 }
 
-func (r *TodoListMySql) GetByID(userID, id int) (todo.TodoList, error) {
+func (r *TodoListMySql) GetByID(userID, listID int) (todo.TodoList, error) {
 	var list todo.TodoList
 	// SELECT tl.id, title, description FROM todo_lists tl INNER JOIN users_lists ul ON tl.id = ul.list_id WHERE ul.user_id = 1 AND ul.list_id = 1
 	stmt := fmt.Sprintf("SELECT tl.id, title, description FROM %s tl INNER JOIN %s ul ON tl.id = ul.list_id WHERE ul.user_id = ? AND ul.list_id = ?",
 		todoListsTable, usersListsTable)
 
-	row := r.db.QueryRow(stmt, userID, id)
+	row := r.db.QueryRow(stmt, userID, listID)
 	if err := row.Scan(&list.Id, &list.Title, &list.Description); err != nil {
 		return todo.TodoList{}, err
 	}
