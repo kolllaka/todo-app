@@ -1,13 +1,13 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/KoLLlaka/todo-app/internal/todo"
 	"github.com/KoLLlaka/todo-app/pkg/handler"
 	"github.com/KoLLlaka/todo-app/pkg/repository"
 	"github.com/KoLLlaka/todo-app/pkg/service"
+	"github.com/sirupsen/logrus"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -15,12 +15,13 @@ import (
 )
 
 func main() {
+	logrus.SetFormatter(new(logrus.JSONFormatter))
 	if err := initConfig(); err != nil {
-		log.Fatalf("error initialization configs: %s\n", err.Error())
+		logrus.Fatalf("error initialization configs: %s\n", err.Error())
 	}
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("error loading env variables: %s", err.Error())
+		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
 
 	db, err := repository.NewMySqlDB(repository.Config{
@@ -31,7 +32,7 @@ func main() {
 		DBName:   viper.GetString("db.dbname"),
 	})
 	if err != nil {
-		log.Fatalf("failed to initialize db: %s\n", err.Error())
+		logrus.Fatalf("failed to initialize db: %s\n", err.Error())
 	}
 
 	repos := repository.NewRepository(db)
@@ -40,7 +41,7 @@ func main() {
 
 	srv := new(todo.Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error occured while running http server: %s\n", err.Error())
+		logrus.Fatalf("error occured while running http server: %s\n", err.Error())
 	}
 }
 
