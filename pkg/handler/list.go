@@ -31,6 +31,10 @@ func (h *Handler) createList(c *gin.Context) {
 	})
 }
 
+type getAllListsResponse struct {
+	Data []todo.TodoList `json:"data"`
+}
+
 func (h *Handler) getAllList(c *gin.Context) {
 	userID, err := getUserID(c)
 	if err != nil {
@@ -43,8 +47,8 @@ func (h *Handler) getAllList(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"lists": lists,
+	c.JSON(http.StatusOK, getAllListsResponse{
+		Data: lists,
 	})
 }
 

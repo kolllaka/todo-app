@@ -49,7 +49,8 @@ func (r *TodoListMySql) Create(userID int, list todo.TodoList) (int, error) {
 func (r *TodoListMySql) GetAll(userID int) ([]todo.TodoList, error) {
 	var lists []todo.TodoList
 	// SELECT tl.id, title, description FROM todo_lists tl INNER JOIN users_lists ul ON tl.id = ul.list_id WHERE ul.user_id = 1
-	stmt := fmt.Sprintf("SELECT tl.id, title, description FROM %s tl INNER JOIN %s ul ON tl.id = ul.list_id WHERE ul.user_id = ?", todoListsTable, usersListsTable)
+	stmt := fmt.Sprintf("SELECT tl.id, title, description FROM %s tl INNER JOIN %s ul ON tl.id = ul.list_id WHERE ul.user_id = ?",
+		todoListsTable, usersListsTable)
 
 	rows, err := r.db.Query(stmt, userID)
 	if err != nil {
