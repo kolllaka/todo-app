@@ -1,10 +1,14 @@
-###
+### sign-up
 POST   http://localhost:8080/auth/sign-up
 Content-Type: application/json
 
-{}
+{
+	"name": "Den",
+	"username": "KoLLlaka",
+	"password": "qwerty"
+}
 
-###
+### sign-in
 POST   http://localhost:8080/auth/sign-in
 Content-Type: application/json
 

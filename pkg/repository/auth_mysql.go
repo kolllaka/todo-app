@@ -17,13 +17,17 @@ func NewAuthMySql(db *sqlx.DB) *AuthMySql {
 }
 
 func (r *AuthMySql) CreateUser(user todo.User) (int, error) {
-	var id int
-	stmt := fmt.Sprintf("INSERT INTO %s (name, username, pasword_hash) VALUES (?, ?, ?)", usersTable)
+	stmt := fmt.Sprintf("INSERT INTO %s (name, username, pasword_hash) VALUES (?, ?, ?);", usersTable)
 
-	row := r.db.QueryRow(stmt, user.Name, user.Username, user.Password)
-	if err := row.Scan(&id); err != nil {
+	result, err := r.db.Exec(stmt, user.Name, user.Username, user.Password)
+	if err != nil {
 		return 0, err
 	}
 
-	return id, nil
+	lastId, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return int(lastId), nil
 }
