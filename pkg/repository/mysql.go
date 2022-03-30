@@ -16,7 +16,9 @@ type Config struct {
 }
 
 func NewMySqlDB(cfg Config) (*sqlx.DB, error) {
-	db, err := sqlx.Open("mysql", fmt.Sprintf("%s:%s@/%s", cfg.Username, cfg.Password, cfg.DBName))
+	sqlconn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DBName)
+	fmt.Printf("sqlconn: %v\n", sqlconn)
+	db, err := sqlx.Open("mysql", sqlconn)
 	if err != nil {
 		return nil, err
 	}
