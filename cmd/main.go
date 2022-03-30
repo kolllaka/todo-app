@@ -5,6 +5,8 @@ import (
 
 	"github.com/KoLLlaka/todo-app/internal/todo"
 	"github.com/KoLLlaka/todo-app/pkg/handler"
+	"github.com/KoLLlaka/todo-app/pkg/repository"
+	"github.com/KoLLlaka/todo-app/pkg/service"
 )
 
 const (
@@ -12,7 +14,9 @@ const (
 )
 
 func main() {
-	handlers := new(handler.Handler)
+	repos := repository.NewRepository()
+	services := service.NewService(repos)
+	handlers := handler.NewHandler(services)
 
 	srv := new(todo.Server)
 	if err := srv.Run(port, handlers.InitRoutes()); err != nil {
