@@ -25,12 +25,12 @@ func (r *AuthMySql) CreateUser(user todo.User) (int, error) {
 		return 0, err
 	}
 
-	lastId, err := result.LastInsertId()
+	lastID, err := result.LastInsertId()
 	if err != nil {
 		return 0, err
 	}
 
-	return int(lastId), nil
+	return int(lastID), nil
 }
 
 func (r *AuthMySql) GetUserID(username, password string) (todo.User, error) {

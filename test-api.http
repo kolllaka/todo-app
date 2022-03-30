@@ -20,60 +20,72 @@ Content-Type: application/json
 ### api/lists/
 POST   http://localhost:8080/api/lists/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2ODMyNTQsImlhdCI6MTY0ODY0MDA1NCwidXNlcl9pZCI6Nn0.cUBbswUaSnDPUSmG5DelpFAm6E_6By8r3PG_c-4ojCM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg2OTQyNzEsImlhdCI6MTY0ODY1MTA3MSwidXNlcl9pZCI6Nn0.Kba_3S9YXaTvGMFrJnYIrzIc0PAlSxasd6YtIEl4D2I
 
-{}
+{
+	"title": "list 2",
+	"description": "desc to list 2"
+}
 
 ###
 GET    http://localhost:8080/api/lists/
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 GET    http://localhost:8080/api/lists/:id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 PUT    http://localhost:8080/api/lists/:id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 DELETE http://localhost:8080/api/lists/:id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 POST   http://localhost:8080/api/lists/:id/items/
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 GET    http://localhost:8080/api/lists/:id/items/
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 GET    http://localhost:8080/api/lists/:id/items/:item_id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 PUT    http://localhost:8080/api/lists/:id/items/:item_id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
 
 ###
 DELETE http://localhost:8080/api/lists/:id/items/:item_id
 Content-Type: application/json
+Authorization: Bearer
 
 {}
