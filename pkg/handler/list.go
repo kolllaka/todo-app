@@ -9,6 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	paramID = "id"
+)
+
 func (h *Handler) createList(c *gin.Context) {
 	userID, err := getUserID(c)
 	if err != nil {
@@ -21,14 +25,14 @@ func (h *Handler) createList(c *gin.Context) {
 		return
 	}
 
-	id, err := h.services.TodoList.Create(userID, input)
+	listID, err := h.services.TodoList.Create(userID, input)
 	if err != nil {
 		newErrorResponce(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"list_id": id,
+		"list_id": listID,
 	})
 }
 
@@ -59,13 +63,13 @@ func (h *Handler) getListById(c *gin.Context) {
 		return
 	}
 
-	id, err := strconv.Atoi(c.Param("id"))
+	listID, err := strconv.Atoi(c.Param(paramID))
 	if err != nil {
-		newErrorResponce(c, http.StatusBadRequest, "invalid id param")
+		newErrorResponce(c, http.StatusBadRequest, "invalid listID param")
 		return
 	}
 
-	list, err := h.services.TodoList.GetByID(userID, id)
+	list, err := h.services.TodoList.GetByID(userID, listID)
 	if err != nil {
 		newErrorResponce(c, http.StatusInternalServerError, err.Error())
 		return
@@ -82,9 +86,9 @@ func (h *Handler) updateList(c *gin.Context) {
 		return
 	}
 
-	id, err := strconv.Atoi(c.Param("id"))
+	listID, err := strconv.Atoi(c.Param(paramID))
 	if err != nil {
-		newErrorResponce(c, http.StatusBadRequest, "invalid id param")
+		newErrorResponce(c, http.StatusBadRequest, "invalid listID param")
 		return
 	}
 
@@ -94,7 +98,7 @@ func (h *Handler) updateList(c *gin.Context) {
 		return
 	}
 
-	if err := h.services.TodoList.Update(userID, id, updateInput); err != nil {
+	if err := h.services.TodoList.Update(userID, listID, updateInput); err != nil {
 		newErrorResponce(c, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -110,13 +114,13 @@ func (h *Handler) deleteList(c *gin.Context) {
 		return
 	}
 
-	id, err := strconv.Atoi(c.Param("id"))
+	listID, err := strconv.Atoi(c.Param(paramID))
 	if err != nil {
-		newErrorResponce(c, http.StatusBadRequest, "invalid id param")
+		newErrorResponce(c, http.StatusBadRequest, "invalid listID param")
 		return
 	}
 
-	if err := h.services.TodoList.Delete(userID, id); err != nil {
+	if err := h.services.TodoList.Delete(userID, listID); err != nil {
 		newErrorResponce(c, http.StatusInternalServerError, err.Error())
 		return
 	}
