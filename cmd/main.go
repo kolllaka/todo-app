@@ -52,7 +52,7 @@ func main() {
 
 	logrus.Print("Todo-App Started")
 
-	quit := make(chan os.Signal, 1)
+	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 	<-quit
 
