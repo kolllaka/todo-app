@@ -35,7 +35,7 @@ func (r *TodoItemMySql) Create(listID int, input todo.TodoItem) (int, error) {
 		return 0, err
 	}
 
-	// INSERT INTO lists_items (user_id, item_id) VALUES (1, 1);
+	// INSERT INTO lists_items (list_id, item_id) VALUES (1, 1);
 	createdUsersListStmt := fmt.Sprintf("INSERT INTO %s (list_id, item_id) VALUES (?, ?)", listsItemsTable)
 	_, err = r.db.Exec(createdUsersListStmt, listID, itemID)
 	if err != nil {
@@ -44,4 +44,27 @@ func (r *TodoItemMySql) Create(listID int, input todo.TodoItem) (int, error) {
 	}
 
 	return int(itemID), nil
+}
+
+func (r *TodoItemMySql) GetAll(listID int) ([]todo.TodoItem, error) {
+	var items []todo.TodoItem
+	// SELECT ti.id, title, description, done FROM todo_items ti INNER JOIN lists_items li ON ti.id = li.item_id WHERE li.list_id = 1
+	stmt := fmt.Sprintf("SELECT ti.id, title, description, done FROM %s ti INNER JOIN %s li ON ti.id = li.item_id WHERE li.list_id = ?", todoItemsTable, listsItemsTable)
+
+	rows, err := r.db.Query(stmt, listID)
+	if err != nil {
+		return []todo.TodoItem{}, err
+	}
+
+	for rows.Next() {
+		var item todo.TodoItem
+
+		if err := rows.Scan(&item.Id, &item.Title, &item.Description, &item.Done); err != nil {
+			return []todo.TodoItem{}, err
+		}
+
+		items = append(items, item)
+	}
+
+	return items, nil
 }
