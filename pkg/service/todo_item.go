@@ -43,3 +43,13 @@ func (s *TodoItemService) GetByID(userID, listID, itemID int) (todo.TodoItem, er
 
 	return s.repo.GetByID(listID, itemID)
 }
+
+func (s *TodoItemService) Delete(userID, listID, itemID int) error {
+	_, err := s.listRepo.GetByID(userID, listID)
+	if err != nil {
+		// list does not exists or does not belong to user
+		return  err
+	}
+
+	return s.repo.Delete(listID, itemID)
+}

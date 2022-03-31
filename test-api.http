@@ -81,7 +81,7 @@ Authorization: {{token}}
 {}
 
 ### api/lists/:id/items/:item_id GET
-GET    http://localhost:8080/api/lists/3/items/7
+GET    http://localhost:8080/api/lists/3/items/6
 Content-Type: application/json
 Authorization: {{token}}
 
@@ -95,7 +95,7 @@ Authorization: {{token}}
 {}
 
 ### api/lists/:id/items/:item_id DELETE
-DELETE http://localhost:8080/api/lists/:id/items/:item_id
+DELETE http://localhost:8080/api/lists/3/items/6
 Content-Type: application/json
 Authorization: {{token}}
 
