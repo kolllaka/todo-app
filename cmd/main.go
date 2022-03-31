@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -57,7 +58,7 @@ func main() {
 
 	logrus.Print("Todo-App Shutting Down")
 
-	if err := srv.Shutdown(context.Background()); err != nil {
+	if err := srv.Shutdown(context.Background()); err != nil && err != http.ErrServerClosed {
 		logrus.Errorf("error occured on server shutting down: %s", err.Error())
 	}
 
