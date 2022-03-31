@@ -20,6 +20,7 @@ type TodoList interface {
 }
 
 type TodoItem interface {
+	Create(listID int, input todo.TodoItem) (int, error)
 }
 
 type Repository struct {
@@ -32,5 +33,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthMySql(db),
 		TodoList:      NewTodoListMySql(db),
+		TodoItem:      NewTodoItemMySql(db),
 	}
 }

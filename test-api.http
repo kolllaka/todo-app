@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3MDA0N
 ### api/lists/:id GET
 GET    http://localhost:8080/api/lists/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3MDA0NDYsImlhdCI6MTY0ODY1NzI0NiwidXNlcl9pZCI6Nn0.kQ2djfFB12IeJX85GPabyzqHl4nyrx_w_84hiSuyV-I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3NTY3NjgsImlhdCI6MTY0ODcxMzU2OCwidXNlcl9pZCI6Nn0.Od46PT-nrfSRdthHdH41rkq9FIO5SzIfam8VzpuiQi4
 
 {}
 
@@ -58,12 +58,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3MDA0N
 
 {}
 
-###
-POST   http://localhost:8080/api/lists/:id/items/
+### api/lists/:id/items/ POST
+POST   http://localhost:8080/api/lists/3/items/
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDg3NTY3NjgsImlhdCI6MTY0ODcxMzU2OCwidXNlcl9pZCI6Nn0.Od46PT-nrfSRdthHdH41rkq9FIO5SzIfam8VzpuiQi4
 
-{}
+{
+	"title": "test"
+}
 
 ###
 GET    http://localhost:8080/api/lists/:id/items/
