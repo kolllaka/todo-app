@@ -33,3 +33,13 @@ func (s *TodoItemService) GetAll(userID, listID int) ([]todo.TodoItem, error) {
 
 	return s.repo.GetAll(listID)
 }
+
+func (s *TodoItemService) GetByID(userID, listID, itemID int) (todo.TodoItem, error) {
+	_, err := s.listRepo.GetByID(userID, listID)
+	if err != nil {
+		// list does not exists or does not belong to user
+		return todo.TodoItem{}, err
+	}
+
+	return s.repo.GetByID(listID, itemID)
+}

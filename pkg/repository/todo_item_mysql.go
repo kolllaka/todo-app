@@ -68,3 +68,17 @@ func (r *TodoItemMySql) GetAll(listID int) ([]todo.TodoItem, error) {
 
 	return items, nil
 }
+
+func (r *TodoItemMySql) GetByID(listID, itemID int) (todo.TodoItem, error) {
+	var item todo.TodoItem
+	// SELECT ti.id, title, description, done FROM todo_items ti INNER JOIN lists_items li ON ti.id = li.item_id WHERE li.list_id = 1 AND li.item_id = 1
+	stmt := fmt.Sprintf("SELECT ti.id, title, description, done FROM %s ti INNER JOIN %s li ON ti.id = li.item_id WHERE li.list_id = ? AND li.item_id = ?",
+		todoItemsTable, listsItemsTable)
+
+	row := r.db.QueryRow(stmt, listID, itemID)
+	if err := row.Scan(&item.Id, &item.Title, &item.Description, &item.Done); err != nil {
+		return todo.TodoItem{}, err
+	}
+
+	return item, nil
+}

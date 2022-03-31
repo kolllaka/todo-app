@@ -6,6 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	paramID     = "id"
+	paramItemID = "item_id"
+)
+
 type Handler struct {
 	services *service.Service
 }
@@ -29,22 +34,18 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			lists.POST("/", h.createList)
 			lists.GET("/", h.getAllList)
-			lists.GET("/:id", h.getListById)
-			lists.PUT("/:id", h.updateList)
-			lists.DELETE("/:id", h.deleteList)
+			lists.GET("/:"+paramID, h.getListById)
+			lists.PUT("/:"+paramID, h.updateList)
+			lists.DELETE("/:"+paramID, h.deleteList)
 
-			items := lists.Group(":id/items")
+			items := lists.Group(":" + paramID + "/items")
 			{
 				items.POST("/", h.createItem)
 				items.GET("/", h.getAllItem)
+				items.GET("/:"+paramItemID, h.getItemById)
+				items.PUT("/:"+paramItemID, h.updateItem)
+				items.DELETE("/:"+paramItemID, h.deleteItem)
 			}
-		}
-
-		items := api.Group("items")
-		{
-			items.GET("/:id", h.getItemById)
-			items.PUT("/:id", h.updateItem)
-			items.DELETE("/:id", h.deleteItem)
 		}
 	}
 

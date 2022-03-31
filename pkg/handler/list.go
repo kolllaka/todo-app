@@ -9,9 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	paramID = "id"
-)
+
 
 func (h *Handler) createList(c *gin.Context) {
 	userID, err := getUserID(c)
