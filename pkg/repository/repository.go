@@ -23,7 +23,7 @@ type TodoItem interface {
 	Create(listID int, input todo.TodoItem) (int, error)
 	GetAll(listID int) ([]todo.TodoItem, error)
 	GetByID(listID, itemID int) (todo.TodoItem, error)
-
+	Update(listID, itemID int, updateInput todo.UpdateItemInput) error
 	Delete(listID, itemID int) error
 }
 

@@ -81,18 +81,22 @@ Authorization: {{token}}
 {}
 
 ### api/lists/:id/items/:item_id GET
-GET    http://localhost:8080/api/lists/3/items/6
+GET    http://localhost:8080/api/lists/3/items/2
 Content-Type: application/json
 Authorization: {{token}}
 
 {}
 
 ### api/lists/:id/items/:item_id PUT
-PUT    http://localhost:8080/api/lists/:id/items/:item_id
+PUT    http://localhost:8080/api/lists/3/items/2
 Content-Type: application/json
 Authorization: {{token}}
 
-{}
+{
+	// "title": "title 1",
+	"description": "desc 1.1",
+	"done": false
+}
 
 ### api/lists/:id/items/:item_id DELETE
 DELETE http://localhost:8080/api/lists/3/items/6

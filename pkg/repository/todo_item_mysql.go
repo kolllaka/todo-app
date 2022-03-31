@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/KoLLlaka/todo-app/internal/todo"
 	"github.com/jmoiron/sqlx"
@@ -81,6 +82,37 @@ func (r *TodoItemMySql) GetByID(listID, itemID int) (todo.TodoItem, error) {
 	}
 
 	return item, nil
+}
+
+func (r *TodoItemMySql) Update(listID, itemID int, updateInput todo.UpdateItemInput) error {
+	setValues := make([]string, 0)
+	args := make([]interface{}, 0)
+
+	if updateInput.Title != nil {
+		setValues = append(setValues, "title = ?")
+		args = append(args, *updateInput.Title)
+	}
+
+	if updateInput.Description != nil {
+		setValues = append(setValues, "description = ?")
+		args = append(args, *updateInput.Description)
+	}
+
+	if updateInput.Done != nil {
+		setValues = append(setValues, "done = ?")
+		args = append(args, *updateInput.Done)
+	}
+
+	setStmt := strings.Join(setValues, ", ")
+
+	// UPDATE todo_items ti, lists_items li SET %s WHERE ti.id = li.item_id AND li.item_id = 1 AND li.list_id = 1
+	stmt := fmt.Sprintf("UPDATE %s ti, %s li SET %s WHERE ti.id = li.item_id AND li.item_id = ? AND li.list_id = ?",
+		todoItemsTable, listsItemsTable, setStmt)
+	args = append(args, itemID, listID)
+
+	_, err := r.db.Exec(stmt, args...)
+
+	return err
 }
 
 func (r *TodoItemMySql) Delete(listID, itemID int) error {

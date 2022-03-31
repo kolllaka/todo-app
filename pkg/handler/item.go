@@ -90,7 +90,37 @@ func (h *Handler) getItemById(c *gin.Context) {
 }
 
 func (h *Handler) updateItem(c *gin.Context) {
+	userID, err := getUserID(c)
+	if err != nil {
+		return
+	}
 
+	listID, err := strconv.Atoi(c.Param(paramID))
+	if err != nil {
+		newErrorResponce(c, http.StatusBadRequest, "invalid listID param")
+		return
+	}
+
+	itemID, err := strconv.Atoi(c.Param(paramItemID))
+	if err != nil {
+		newErrorResponce(c, http.StatusBadRequest, "invalid itemID param")
+		return
+	}
+
+	var updateInput todo.UpdateItemInput
+	if err := c.BindJSON(&updateInput); err != nil {
+		newErrorResponce(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if err := h.services.TodoItem.Update(userID, listID, itemID, updateInput); err != nil {
+		newErrorResponce(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, statusResponce{
+		"ok",
+	})
 }
 
 func (h *Handler) deleteItem(c *gin.Context) {
