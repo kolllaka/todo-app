@@ -30,21 +30,21 @@ func (r *TodoListMySql) Create(userID int, list todo.TodoList) (int, error) {
 		return 0, err
 	}
 
-	id, err := result.LastInsertId()
+	listID, err := result.LastInsertId()
 	if err != nil {
 		tx.Rollback()
 		return 0, err
 	}
 
 	// INSERT INTO users_lists (user_id, list_id) VALUES (1, 1);
-	createdUsersListQuery := fmt.Sprintf("INSERT INTO %s (user_id, list_id) VALUES (?, ?)", usersListsTable)
-	_, err = tx.Exec(createdUsersListQuery, userID, id)
+	createdUsersListStmt := fmt.Sprintf("INSERT INTO %s (user_id, list_id) VALUES (?, ?)", usersListsTable)
+	_, err = tx.Exec(createdUsersListStmt, userID, listID)
 	if err != nil {
 		tx.Rollback()
 		return 0, err
 	}
 
-	return int(id), tx.Commit()
+	return int(listID), tx.Commit()
 }
 
 func (r *TodoListMySql) GetAll(userID int) ([]todo.TodoList, error) {
